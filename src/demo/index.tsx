@@ -1,4 +1,4 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
@@ -8,4 +8,9 @@ root.className = "root";
 
 document.body.appendChild(root);
 
-ReactDOM.render(<App />, root);
+ReactDOM.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  root
+);

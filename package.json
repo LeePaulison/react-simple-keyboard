@@ -127,8 +127,5 @@
       "jsx",
       "node"
     ]
-  },
-  "dependencies": {
-    "simple-keyboard": "github:LeePaulison/simple-keyboard"
   }
 }

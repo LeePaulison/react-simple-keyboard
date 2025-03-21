@@ -11,8 +11,7 @@ class App extends React.Component {
 
   keyboard: SimpleKeyboard;
 
-  onChange = (input) =>
-    this.setState({ input }, () => console.log("Input changed", input));
+  onChange = (input) => this.setState({ input }, () => console.log("Input changed", input));
 
   onKeyPress = (button) => {
     console.log("Button pressed", button);
@@ -20,8 +19,7 @@ class App extends React.Component {
     /**
      * Shift functionality
      */
-    if (["{capslock}", "{shiftleft}", "{shiftright}"].includes(button))
-      this.handleShiftButton();
+    if (["{capslock}", "{shiftleft}", "{shiftright}"].includes(button)) this.handleShiftButton();
   };
 
   handleShiftButton = () => {
@@ -36,9 +34,9 @@ class App extends React.Component {
   onChangeInput = (event) => {
     const input = event.target.value;
 
-    this.setState({ input: event.target.value }, () =>
-      this.keyboard.setInput(input)
-    );
+    console.log("Input changed", input);
+
+    this.setState({ input: event.target.value }, () => this.keyboard.setInput(input));
   };
 
   render() {
@@ -50,19 +48,20 @@ class App extends React.Component {
     } = this;
 
     return (
-      <div className="demoPage">
-        <div className="screenContainer">
-          <textarea
-            className="inputContainer"
-            value={input}
-            onChange={onChangeInput}
-          />
+      <div className='demoPage'>
+        <div className='screenContainer'>
+          <textarea className='inputContainer' value={input} onChange={onChangeInput} />
         </div>
         <Keyboard
           keyboardRef={(r) => (this.keyboard = r)}
           onChange={onChange}
           onKeyPress={onKeyPress}
           layoutName={layoutName}
+          physicalKeyboardHighlight={true}
+          physicalKeyboardHighlightPressUsePointerEvents={true}
+          physicalKeyboardHighlightPreventDefault={true}
+          physicalKeyboardHighlightPress={true}
+          debug={true}
         />
       </div>
     );
