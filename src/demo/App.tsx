@@ -11,6 +11,14 @@ class App extends React.Component {
 
   keyboard: SimpleKeyboard;
 
+  // componentDidUpdate(prevState: Readonly<{ input: string; layoutName: string }>): void {
+  //   if (prevState.input !== this.state.input) {
+  //     this.keyboard.setOptions({
+  //       rtl: true,
+  //     });
+  //   }
+  // }
+
   onChange = (input) => this.setState({ input }, () => console.log("Input changed", input));
 
   onKeyPress = (button) => {
