@@ -1,6 +1,6 @@
 {
   "name": "react-simple-keyboard",
-  "version": "3.8.51",
+  "version": "3.8.52.aac",
   "description": "React.js Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
@@ -129,6 +129,6 @@
     ]
   },
   "dependencies": {
-    "simple-keyboard": "file:../simple-keyboard"
+    "simple-keyboard": "file:../simple-keyboard/simple-keyboard-3.8.39.aac.tgz"
   }
 }
