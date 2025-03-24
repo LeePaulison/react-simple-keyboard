@@ -127,5 +127,8 @@
       "jsx",
       "node"
     ]
+  },
+  "dependencies": {
+    "simple-keyboard": "file:../simple-keyboard"
   }
 }
