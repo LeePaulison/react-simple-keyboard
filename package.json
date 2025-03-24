@@ -129,6 +129,6 @@
     ]
   },
   "dependencies": {
-    "simple-keyboard": "file:../simple-keyboard/simple-keyboard-3.8.39.aac.tgz"
+    "simple-keyboard": "github:LeePaulison/simple-keyboard"
   }
 }
