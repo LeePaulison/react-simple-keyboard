@@ -1,7 +1,10 @@
 {
   "name": "react-simple-keyboard",
-  "version": "3.8.52.aac",
+  "version": "3.8.53-aac",
   "description": "React.js Virtual Keyboard",
+  "contributors": [
+    "Lee Paulison Jr <lee.paulison@aac-usa.com> Editor"
+  ],
   "main": "build/index.js",
   "scripts": {
     "start": "webpack serve --config webpack.config.demo.js",

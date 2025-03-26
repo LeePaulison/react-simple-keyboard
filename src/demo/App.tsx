@@ -1,12 +1,12 @@
-import * as React from "react";
-import SimpleKeyboard from "simple-keyboard";
-import Keyboard from "../lib";
-import "./css/App.css";
+import * as React from 'react';
+import SimpleKeyboard from 'simple-keyboard';
+import Keyboard from '../lib';
+import './css/App.css';
 
 class App extends React.Component {
   state = {
-    input: "",
-    layoutName: "default",
+    input: '',
+    layoutName: 'default',
   };
 
   keyboard: SimpleKeyboard;
@@ -19,22 +19,22 @@ class App extends React.Component {
   //   }
   // }
 
-  onChange = (input) => this.setState({ input }, () => console.log("Input changed", input));
+  onChange = (input) => this.setState({ input }, () => console.log('Input changed', input));
 
   onKeyPress = (button) => {
-    console.log("Button pressed", button);
+    console.log('Button pressed', button);
 
     /**
      * Shift functionality
      */
-    if (["{capslock}", "{shiftleft}", "{shiftright}"].includes(button)) this.handleShiftButton();
+    if (['{capslock}', '{shiftleft}', '{shiftright}'].includes(button)) this.handleShiftButton();
   };
 
   handleShiftButton = () => {
     const {
       state: { layoutName },
     } = this;
-    const shiftToggle = layoutName === "default" ? "shift" : "default";
+    const shiftToggle = layoutName === 'default' ? 'shift' : 'default';
 
     this.setState({ layoutName: shiftToggle });
   };
@@ -42,7 +42,7 @@ class App extends React.Component {
   onChangeInput = (event) => {
     const input = event.target.value;
 
-    console.log("Input changed", input);
+    console.log('Input changed', input);
 
     this.setState({ input: event.target.value }, () => this.keyboard.setInput(input));
   };
@@ -69,6 +69,10 @@ class App extends React.Component {
           physicalKeyboardHighlightPressUsePointerEvents={true}
           physicalKeyboardHighlightPreventDefault={true}
           physicalKeyboardHighlightPress={true}
+          excludeFromLayout={{
+            default: ['@', '.com'],
+            shift: ['@', '.com'],
+          }}
           debug={true}
         />
       </div>
