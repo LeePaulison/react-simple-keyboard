@@ -3,57 +3,55 @@ const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const getPackageJson = require('./scripts/getPackageJson');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-const {
-  version,
-  name,
-  license,
-  repository,
-  author
-} = getPackageJson('version', 'name', 'license', 'repository', 'author');
+const { version, name, license, repository, author } = getPackageJson(
+  'version',
+  'name',
+  'license',
+  'repository',
+  'author'
+);
 
 const banner = `
   ${name} v${version}
-  ${repository.url}
-
-  Copyright (c) ${author.replace(/ *<[^)]*> */g, " ")} and project contributors.
+  License: ${license}
+  Author: ${author}
+  Repository: ${repository?.url || ''}
+  Copyright (c) ${author.replace(/ *<[^)]*> */g, ' ')} and project contributors.
 
   This source code is licensed under the ${license} license found in the
   LICENSE file in the root directory of this source tree.
-`;
+`.trim();
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
   entry: './src/lib/index.ts',
   target: 'es5',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'build'),
-    library: "SimpleKeyboard",
+    library: 'SimpleKeyboard',
     libraryTarget: 'umd',
     clean: true,
     globalObject: 'this',
     hashFunction: 'xxhash64',
     chunkFormat: 'module',
     environment: {
-      arrowFunction: false
-    }
+      arrowFunction: false,
+    },
   },
   optimization: {
     minimize: true,
-    minimizer: [
-      new TerserPlugin({ extractComments: false }),
-      new CssMinimizerPlugin()
-    ],
+    minimizer: [new TerserPlugin({ extractComments: false }), new CssMinimizerPlugin()],
   },
   devServer: {
     open: true,
     hot: true,
-    host: "localhost",
+    host: 'localhost',
     static: path.join(__dirname, 'demo'),
-    port: 9000
+    port: 9000,
   },
   module: {
     rules: [
@@ -61,23 +59,19 @@ module.exports = {
         test: /\.m?(j|t)s$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: "css-loader" },
+          { loader: 'css-loader' },
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [
-                  [
-                    "autoprefixer"
-                  ],
-                ],
+                plugins: [['autoprefixer']],
               },
             },
           },
@@ -86,16 +80,16 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/,
         use: ['url-loader'],
-      }
-    ]
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-        filename: 'css/index.css'
+      filename: 'css/index.css',
     }),
-    new webpack.BannerPlugin(banner)
+    new webpack.BannerPlugin(banner),
   ],
   resolve: {
-    extensions: ['.ts', '.js', '.json']
-  }
+    extensions: ['.ts', '.js', '.json'],
+  },
 };

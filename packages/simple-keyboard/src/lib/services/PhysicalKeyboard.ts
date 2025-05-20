@@ -185,26 +185,40 @@ class PhysicalKeyboard {
           ? this.layoutJSON[e.code].shift.toString()
           : this.layoutJSON[e.code].normal.toString();
     } else {
-      output = e.key && e.key !== 'Unidentified' ? e.key : this.keyCodeToKey(e?.keyCode);
+      // Only allow fallback for known safe keys
+      const fallbackKeys = ['Backspace', 'Enter', 'Tab', 'Escape'];
+      if (fallbackKeys.includes(e.key)) {
+        output = e.key.toLowerCase();
+      } else {
+        // Log unexpected fallbacks for analysis
+        console.warn('Unmapped key event (code fallback failed):', {
+          code: e.code,
+          key: e.key,
+          keyCode: e.keyCode,
+          layoutJSON: this.layoutJSON,
+        });
+
+        output = ''; // or optionally 'unmapped'
+      }
     }
 
     // Normalize left/right variations
     const normalizeKeyMap: Record<string, string> = {
-      ShiftLeft: 'shift',
-      ShiftRight: 'shift',
-      ControlLeft: 'ctrl',
-      ControlRight: 'ctrl',
-      AltLeft: 'alt',
-      AltRight: 'alt',
-      MetaLeft: 'meta',
-      MetaRight: 'meta',
-      Backspace: 'bksp',
-      CapsLock: 'lock',
-      Enter: 'enter',
-      Tab: 'tab',
+      shiftleft: 'shift',
+      shiftright: 'shift',
+      controlleft: 'ctrl',
+      controlright: 'ctrl',
+      altleft: 'alt',
+      altright: 'alt',
+      metaleft: 'meta',
+      metaright: 'meta',
+      backspace: 'bksp',
+      capslock: 'lock',
+      enter: 'enter',
+      tab: 'tab',
     };
 
-    return normalizeKeyMap[output] || (output.length > 1 ? output.toLowerCase() : output);
+    return normalizeKeyMap[output.toLowerCase()] || (output.length > 1 ? output.toLowerCase() : output);
   }
 
   /**
