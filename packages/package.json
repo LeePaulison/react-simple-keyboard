@@ -1,0 +1,26 @@
+{
+  "name": "simple-keyboard",
+  "version": "3.8.54.local",
+  "description": "On-screen JavaScript Virtual Keyboard",
+  "contributors": [
+    "Lee Paulison <lee.paulison.jr@aac-usa.com> Editor"
+  ],
+  "main": "build/index.js",
+  "module": "build/index.modern.esm.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./build/index.js",
+      "import": "./build/index.modern.esm.js",
+      "types": "./build/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "webpack && npm run build-modern && npm run build-modern-esm && tsc",
+    "build-modern": "webpack --config webpack.config.modern.js",
+    "build-modern-esm": "webpack --config webpack.config.modern_esm.js"
+  },
+  "dependencies": {
+    "simple-keyboard-layouts": "^3.4.63"
+  }
+}
