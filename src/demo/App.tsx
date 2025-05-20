@@ -1,6 +1,7 @@
 import * as React from 'react';
 import SimpleKeyboard from 'simple-keyboard';
-import Keyboard from '../lib';
+import Keyboard from '../../build/index';
+import 'simple-keyboard/css';
 import './css/App.css';
 
 // Layouts

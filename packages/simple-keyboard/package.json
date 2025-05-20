@@ -17,6 +17,9 @@
     "./build/css/index.css": {
       "default": "./build/css/index.css"
     },
+    "./css": {
+      "default": "./build/css/index.css"
+    },
     "./build/index.modern": {
       "default": "./build/index.modern.js"
     },
