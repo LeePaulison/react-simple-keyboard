@@ -14,19 +14,9 @@ class App extends React.Component {
 
   keyboard: SimpleKeyboard;
 
-  // componentDidUpdate(prevState: Readonly<{ input: string; layoutName: string }>): void {
-  //   if (prevState.input !== this.state.input) {
-  //     this.keyboard.setOptions({
-  //       rtl: true,
-  //     });
-  //   }
-  // }
-
   onChange = (input) => this.setState({ input }, () => console.log('Input changed', input));
 
   onKeyPress = (button) => {
-    console.log('Button pressed', button);
-
     /**
      * Shift functionality
      */
@@ -44,8 +34,6 @@ class App extends React.Component {
 
   onChangeInput = (event) => {
     const input = event.target.value;
-
-    console.log('Input changed', input);
 
     this.setState({ input: event.target.value }, () => this.keyboard.setInput(input));
   };
@@ -67,9 +55,7 @@ class App extends React.Component {
           keyboardRef={(r) => (this.keyboard = r)}
           onChange={onChange}
           onKeyPress={onKeyPress}
-          layout={layout.layout}
           layoutName={layoutName}
-          layoutCandidates={layout.layoutCandidates}
           physicalKeyboardHighlight={true}
           physicalKeyboardHighlightPress={true}
           excludeFromLayout={{

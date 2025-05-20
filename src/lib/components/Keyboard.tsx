@@ -1,11 +1,11 @@
-import * as React from "react";
-import Keyboard from "simple-keyboard";
-import { parseProps, changedProps } from "../services/Utilities";
-import "simple-keyboard/build/css/index.css";
-import { KeyboardReactInterface } from "../interfaces.d";
+import * as React from 'react';
+import Keyboard from 'simple-keyboard';
+import { parseProps, changedProps } from '../services/Utilities';
+import '../../../packages/simple-keyboard/build/css/index.css';
+import { KeyboardReactInterface } from '../interfaces.d';
 
-const KeyboardReact = (props: KeyboardReactInterface["options"]) => {
-  const cssClass = props.baseClass || "react-simple-keyboard";
+const KeyboardReact = (props: KeyboardReactInterface['options']) => {
+  const cssClass = props.baseClass || 'react-simple-keyboard';
   const initRef = React.useRef<null | boolean>(null);
   const targetElemRef = React.useRef<null | HTMLDivElement>(null);
   const keyboardRef = React.useRef<null | KeyboardReactInterface>(null);
@@ -33,13 +33,10 @@ const KeyboardReact = (props: KeyboardReactInterface["options"]) => {
      */
     if (!initRef.current) {
       initRef.current = true;
-      parsedProps.debug && console.log("ReactSimpleKeyboard: Init");
+      parsedProps.debug && console.log('ReactSimpleKeyboard: Init');
       const targetElem = targetElemRef.current as HTMLDivElement;
       const targetClass = `.${cssClass}`;
-      keyboardRef.current = new Keyboard(
-        targetElem || targetClass,
-        parsedProps
-      ) as KeyboardReactInterface;
+      keyboardRef.current = new Keyboard(targetElem || targetClass, parsedProps) as KeyboardReactInterface;
       parsedProps.keyboardRef && parsedProps.keyboardRef(keyboardRef.current);
     }
 
@@ -52,11 +49,7 @@ const KeyboardReact = (props: KeyboardReactInterface["options"]) => {
       const keyboard = keyboardRef.current;
       previousProps.current = parsedProps;
       keyboard?.setOptions(parsedProps);
-      parsedProps.debug &&
-        console.log(
-          "ReactSimpleKeyboard - setOptions called due to updated props:",
-          updatedProps
-        );
+      parsedProps.debug && console.log('ReactSimpleKeyboard - setOptions called due to updated props:', updatedProps);
     }
   }, [initRef, cssClass, previousProps, props]);
 

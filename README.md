@@ -1,3 +1,15 @@
+## 🛠️ What is This Repo?
+
+This is a **monorepo fork of `react-simple-keyboard` and `simple-keyboard`**, built for internal use, customization, and tighter control over keyboard behavior in React applications.
+
+### Why this exists:
+
+- Both `react-simple-keyboard` and its core dependency `simple-keyboard` are maintained side-by-side in a single repository.
+- Enables direct customization and debugging of the core `simple-keyboard` logic without relying on npm-published versions.
+- Ideal for monorepo projects, internal demos, or apps requiring fully controlled virtual keyboard behavior.
+
+> 💡 For most use cases, you should use the [official version](https://github.com/hodgef/react-simple-keyboard). This fork is maintained for internal platform needs and rapid iteration.
+
 <a href="https://simple-keyboard.com/demo">
     <img alt="simple-keyboard: Javscript Virtual Keyboard" src="https://user-images.githubusercontent.com/25509135/188000091-fc64ce47-2a87-4835-ab6c-defbaba3ee90.gif">
 </a>
