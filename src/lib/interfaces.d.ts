@@ -804,6 +804,10 @@ export interface Utilities {
         /**
             * Reusable empty function
             */
+        /**
+            * Check if a function is a constructor
+            */
+        isConstructor(f: any): boolean;
 }
 export interface CandidateBox {
     utilities: Utilities;

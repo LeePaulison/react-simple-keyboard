@@ -3,6 +3,9 @@ import SimpleKeyboard from 'simple-keyboard';
 import Keyboard from '../lib';
 import './css/App.css';
 
+// Layouts
+import layout from 'simple-keyboard-layouts/build/layouts/korean';
+
 class App extends React.Component {
   state = {
     input: '',
@@ -64,10 +67,10 @@ class App extends React.Component {
           keyboardRef={(r) => (this.keyboard = r)}
           onChange={onChange}
           onKeyPress={onKeyPress}
+          layout={layout.layout}
           layoutName={layoutName}
+          layoutCandidates={layout.layoutCandidates}
           physicalKeyboardHighlight={true}
-          physicalKeyboardHighlightPressUsePointerEvents={true}
-          physicalKeyboardHighlightPreventDefault={true}
           physicalKeyboardHighlightPress={true}
           excludeFromLayout={{
             default: ['@', '.com'],

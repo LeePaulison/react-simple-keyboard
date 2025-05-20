@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "3.8.54.local",
+  "version": "3.8.54-local",
   "description": "On-screen JavaScript Virtual Keyboard",
   "contributors": [
     "Lee Paulison <lee.paulison.jr@aac-usa.com> Editor"
@@ -13,6 +13,15 @@
       "require": "./build/index.js",
       "import": "./build/index.modern.esm.js",
       "types": "./build/index.d.ts"
+    },
+    "./build/css/index.css": {
+      "default": "./build/css/index.css"
+    },
+    "./build/index.modern": {
+      "default": "./build/index.modern.js"
+    },
+    "./build/index.modern.js": {
+      "default": "./build/index.modern.js"
     }
   },
   "scripts": {
