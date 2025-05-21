@@ -161,48 +161,144 @@ class PhysicalKeyboard {
     });
   }
 
+  STANDARD_CODES = new Set([
+    // Alphanumeric
+    'Backquote',
+    'Digit0',
+    'Digit1',
+    'Digit2',
+    'Digit3',
+    'Digit4',
+    'Digit5',
+    'Digit6',
+    'Digit7',
+    'Digit8',
+    'Digit9',
+    'KeyA',
+    'KeyB',
+    'KeyC',
+    'KeyD',
+    'KeyE',
+    'KeyF',
+    'KeyG',
+    'KeyH',
+    'KeyI',
+    'KeyJ',
+    'KeyK',
+    'KeyL',
+    'KeyM',
+    'KeyN',
+    'KeyO',
+    'KeyP',
+    'KeyQ',
+    'KeyR',
+    'KeyS',
+    'KeyT',
+    'KeyU',
+    'KeyV',
+    'KeyW',
+    'KeyX',
+    'KeyY',
+    'KeyZ',
+
+    // Control & nav
+    'Enter',
+    'Escape',
+    'Backspace',
+    'Tab',
+    'Space',
+    'ArrowLeft',
+    'ArrowRight',
+    'ArrowUp',
+    'ArrowDown',
+    'Delete',
+    'Insert',
+    'Home',
+    'End',
+    'PageUp',
+    'PageDown',
+
+    // Modifier keys
+    'ShiftLeft',
+    'ShiftRight',
+    'ControlLeft',
+    'ControlRight',
+    'AltLeft',
+    'AltRight',
+    'MetaLeft',
+    'MetaRight',
+    'CapsLock',
+
+    // Symbols & punctuation
+    'Minus',
+    'Equal',
+    'BracketLeft',
+    'BracketRight',
+    'Backslash',
+    'Semicolon',
+    'Quote',
+    'Comma',
+    'Period',
+    'Slash',
+
+    // Function keys
+    'F1',
+    'F2',
+    'F3',
+    'F4',
+    'F5',
+    'F6',
+    'F7',
+    'F8',
+    'F9',
+    'F10',
+    'F11',
+    'F12',
+
+    // Numpad
+    'NumLock',
+    'Numpad0',
+    'Numpad1',
+    'Numpad2',
+    'Numpad3',
+    'Numpad4',
+    'Numpad5',
+    'Numpad6',
+    'Numpad7',
+    'Numpad8',
+    'Numpad9',
+    'NumpadAdd',
+    'NumpadSubtract',
+    'NumpadMultiply',
+    'NumpadDivide',
+    'NumpadDecimal',
+    'NumpadEnter',
+
+    // Misc
+    'ScrollLock',
+    'Pause',
+    'PrintScreen',
+    'ContextMenu',
+  ]);
+
   /**
-   * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
-   * @param  {object} e The KeyboardEvent
-   * @returns {string} The simple-keyboard layout key
+   * Normalize a code string to match the official `e.code` spec format.
+   * Returns null if no match is found.
    */
-  getSimpleKeyboardLayoutKey(e: KeyboardEvent): string {
-    let output = '';
+  normalizeToStandardCode(input: string): string | null {
+    if (!input || typeof input !== 'string') return null;
+    const upper = input.trim();
 
-    const options = this.getOptions();
-    const currentLayout = options?.layout?.default?.[1] ?? getDefaultLayout().default[1];
-    if (this.lastLayout !== currentLayout) {
-      this.lastLayout = currentLayout || '';
-
-      const layout = options?.layout ?? getDefaultLayout();
-      this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
-    }
-
-    if (this.layoutJSON && this.layoutJSON[e.code]) {
-      // Determine whether to use normal or shift based on Shift & CapsLock state
-      output =
-        this.shiftActive || this.capslockActive
-          ? this.layoutJSON[e.code].shift.toString()
-          : this.layoutJSON[e.code].normal.toString();
-    } else {
-      // Only allow fallback for known safe keys
-      const fallbackKeys = ['Backspace', 'Enter', 'Tab', 'Escape'];
-      if (fallbackKeys.includes(e.key)) {
-        output = e.key.toLowerCase();
-      } else {
-        // Log unexpected fallbacks for analysis
-        console.warn('Unmapped key event (code fallback failed):', {
-          code: e.code,
-          key: e.key,
-          keyCode: e.keyCode,
-          layoutJSON: this.layoutJSON,
-        });
-
-        output = ''; // or optionally 'unmapped'
+    for (const code of this.STANDARD_CODES) {
+      if (code.toLowerCase() === upper.toLowerCase()) {
+        return code;
       }
     }
 
-    // Normalize left/right variations
+    return null;
+  }
+
+  normalizeOutput(rawKey: string): string {
     const normalizeKeyMap: Record<string, string> = {
       shiftleft: 'shift',
       shiftright: 'shift',
@@ -218,7 +314,64 @@ class PhysicalKeyboard {
       tab: 'tab',
     };
 
-    return normalizeKeyMap[output.toLowerCase()] || (output.length > 1 ? output.toLowerCase() : output);
+    const key = rawKey.toLowerCase();
+    return normalizeKeyMap[key] || (key.length > 1 ? key : rawKey);
+  }
+
+  /**
+   * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
+   * @param  {object} e The KeyboardEvent
+   * @returns {string} The simple-keyboard layout key
+   */
+  getSimpleKeyboardLayoutKey(e: KeyboardEvent): string {
+    let output = '';
+
+    const options = this.getOptions();
+    const currentLayout = options?.layout?.default?.[1] ?? getDefaultLayout().default[1];
+    if (this.lastLayout !== currentLayout) {
+      this.lastLayout = currentLayout || '';
+      const layout = options?.layout ?? getDefaultLayout();
+      this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
+    }
+
+    const eCode = this.normalizeToStandardCode(e.code);
+
+    // if we have a valid code and it's in the layout, return early
+    if (this.layoutJSON && eCode && this.layoutJSON[eCode]) {
+      const layoutEntry = this.layoutJSON[eCode];
+      output = this.shiftActive || this.capslockActive ? layoutEntry.shift.toString() : layoutEntry.normal.toString();
+
+      const normalized = this.normalizeOutput(output);
+      return normalized;
+    }
+
+    // fallback path for known safe keys
+    const fallbackKeys = new Set(['backspace', 'enter', 'tab', 'escape']);
+    const key = (e.key || '').toLowerCase();
+    if (fallbackKeys.has(key)) {
+      output = key;
+      const normalized = this.normalizeOutput(output);
+      return normalized;
+    }
+
+    // unmapped key — log it and return blank
+    console.warn('[simple-keyboard][Edge Case Triggered] Unmapped key event:', {
+      code: e.code,
+      key: e.key,
+      keyCode: e.keyCode,
+      layoutJSON: this.layoutJSON,
+      userAgent: navigator.userAgent, // Browser + OS info
+      platform: navigator.platform, // OS-level platform
+      language: navigator.language, // Active input language (e.g., "ko-KR")
+      imeMode:
+        document.activeElement && 'inputMode' in document.activeElement
+          ? (document.activeElement as HTMLInputElement | HTMLTextAreaElement).inputMode
+          : 'unknown', // Input method
+      isEditable: (document.activeElement as HTMLElement)?.isContentEditable || false, // Useful for composition
+      time: new Date().toISOString(),
+    });
+
+    return '';
   }
 
   /**
