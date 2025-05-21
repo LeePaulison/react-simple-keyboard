@@ -22,6 +22,13 @@ declare class PhysicalKeyboard {
     constructor({ dispatch, getOptions }: PhysicalKeyboardParams);
     handleHighlightKeyDown(e: KeyboardEvent): void;
     handleHighlightKeyUp(e: KeyboardEvent): void;
+    STANDARD_CODES: Set<string>;
+    /**
+     * Normalize a code string to match the official `e.code` spec format.
+     * Returns null if no match is found.
+     */
+    normalizeToStandardCode(input: string): string | null;
+    normalizeOutput(rawKey: string): string;
     /**
      * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
      * @param  {object} e The KeyboardEvent
