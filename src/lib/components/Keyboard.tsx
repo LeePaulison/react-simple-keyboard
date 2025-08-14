@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Keyboard from 'simple-keyboard';
+import Keyboard from '@aac/simple-keyboard';
 import { parseProps, changedProps } from '../services/Utilities';
-import 'simple-keyboard/css';
+import '@aac/simple-keyboard/css';
 import { KeyboardReactInterface } from '../interfaces.d';
 
 const KeyboardReact = (props: KeyboardReactInterface['options']) => {
@@ -36,9 +36,11 @@ const KeyboardReact = (props: KeyboardReactInterface['options']) => {
       parsedProps.debug && console.log('ReactSimpleKeyboard: Init');
       const targetElem = targetElemRef.current as HTMLDivElement;
       const targetClass = `.${cssClass}`;
-      keyboardRef.current = new Keyboard(targetElem || targetClass, parsedProps) as KeyboardReactInterface;
+      keyboardRef.current = new Keyboard(targetElem || targetClass, parsedProps) as unknown as KeyboardReactInterface;
       parsedProps.keyboardRef && parsedProps.keyboardRef(keyboardRef.current);
     }
+
+    console.log('[Debug] keyboardRef:', keyboardRef.current);
 
     const updatedProps = changedProps(previousProps.current, parsedProps);
 

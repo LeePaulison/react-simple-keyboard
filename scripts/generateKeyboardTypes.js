@@ -3,7 +3,7 @@ var dts = require('dts-bundle');
  
 dts.bundle({
     name: 'simple-keyboard',
-    main: 'node_modules/simple-keyboard/build/index.d.ts',
+    main: 'node_modules/@aac/simple-keyboard/build/index.d.ts',
     out: '../../../src/lib/interfaces.d.ts',
     outputAsModuleFolder: true
 });

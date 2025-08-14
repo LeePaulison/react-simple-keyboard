@@ -13,8 +13,16 @@
     "moduleResolution": "node",
     "downlevelIteration": true,
     "jsx": "react",
-    "strict": true
+    "strict": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src/lib"],
-  "exclude": ["src/lib/**/tests"]
+  "exclude": [
+    "src/lib/**/tests",
+    "node_modules/@types/enzyme/**",
+    "node_modules/@types/node/ts5.6/**",
+    "**/node_modules/@types/react/**"
+  ]
 }

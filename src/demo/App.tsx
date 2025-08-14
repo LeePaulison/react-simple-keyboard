@@ -1,11 +1,12 @@
 import * as React from 'react';
-import SimpleKeyboard from 'simple-keyboard';
-import Keyboard from '../../build/index';
-import 'simple-keyboard/css';
+import SimpleKeyboard from '@aac/simple-keyboard';
+// import Keyboard from '../../build/index';
+import Keyboard from '../lib/components/Keyboard';
+import '@aac/simple-keyboard/css';
 import './css/App.css';
 
 // Layouts
-import layout from 'simple-keyboard-layouts/build/layouts/korean';
+import koreanLayout from 'simple-keyboard-layouts/build/layouts/korean';
 
 class App extends React.Component {
   state = {
@@ -47,6 +48,8 @@ class App extends React.Component {
       onKeyPress,
     } = this;
 
+    console.log('Korean Layout:', koreanLayout);
+
     return (
       <div className='demoPage'>
         <div className='screenContainer'>
@@ -64,6 +67,19 @@ class App extends React.Component {
             shift: ['@', '.com'],
           }}
           debug={true}
+          layout={koreanLayout.layout}
+          layoutCandidates={{
+            가: '가',
+            가ᄀ: '각',
+            가ᄀᄉ: '갃',
+            가ᄁ: '갂',
+            가ᄂ: '간',
+            가ᄂᄌ: '갅',
+            가ᄂᄒ: '갆',
+            가ᄃ: '갇',
+            가ᄅ: '갈',
+          }}
+          enableLayoutCandidates={true}
         />
       </div>
     );
