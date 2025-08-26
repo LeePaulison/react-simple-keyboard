@@ -55,6 +55,12 @@ export interface KeyboardReactInterface extends SimpleKeyboard {
     };
   }  
 export interface KeyboardReactInterface extends SimpleKeyboard {
+    options: SimpleKeyboard["options"] & {
+      // eslint-disable-next-line no-unused-vars
+      keyboardRef?: (r: any) => void;
+    };
+  }  
+export interface KeyboardReactInterface extends SimpleKeyboard {
   options: SimpleKeyboard['options'] & {
     // eslint-disable-next-line no-unused-vars
     keyboardRef?: (r: any) => void;

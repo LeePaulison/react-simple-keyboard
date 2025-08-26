@@ -6,7 +6,6 @@ import '@aac/simple-keyboard/css';
 import './css/App.css';
 
 // Layouts
-import koreanLayout from 'simple-keyboard-layouts/build/layouts/korean';
 
 class App extends React.Component {
   state = {
@@ -48,8 +47,6 @@ class App extends React.Component {
       onKeyPress,
     } = this;
 
-    console.log('Korean Layout:', koreanLayout);
-
     return (
       <div className='demoPage'>
         <div className='screenContainer'>
@@ -67,19 +64,7 @@ class App extends React.Component {
             shift: ['@', '.com'],
           }}
           debug={true}
-          layout={koreanLayout.layout}
-          layoutCandidates={{
-            가: '가',
-            가ᄀ: '각',
-            가ᄀᄉ: '갃',
-            가ᄁ: '갂',
-            가ᄂ: '간',
-            가ᄂᄌ: '갅',
-            가ᄂᄒ: '갆',
-            가ᄃ: '갇',
-            가ᄅ: '갈',
-          }}
-          enableLayoutCandidates={true}
+          preventMouseDownDefault={true}
         />
       </div>
     );
