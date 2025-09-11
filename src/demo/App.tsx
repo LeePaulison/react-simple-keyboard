@@ -13,11 +13,15 @@ class App extends React.Component {
     layoutName: 'default',
   };
 
-  keyboard: SimpleKeyboard;
+  keyboard!: SimpleKeyboard;
 
-  onChange = (input) => this.setState({ input }, () => console.log('Input changed', input));
+  onChange = (input: string) =>
+    this.setState({ input }, () => {
+      console.log('Input changed', input);
+      this.keyboard.setInput(input, '_focusRestore');
+    });
 
-  onKeyPress = (button) => {
+  onKeyPress = (button: string) => {
     /**
      * Shift functionality
      */
@@ -33,7 +37,7 @@ class App extends React.Component {
     this.setState({ layoutName: shiftToggle });
   };
 
-  onChangeInput = (event) => {
+  onChangeInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const input = event.target.value;
 
     this.setState({ input: event.target.value }, () => this.keyboard.setInput(input));
@@ -59,12 +63,15 @@ class App extends React.Component {
           layoutName={layoutName}
           physicalKeyboardHighlight={true}
           physicalKeyboardHighlightPress={true}
+          physicalKeyboardHighlightPreventDefault={true}
           excludeFromLayout={{
             default: ['@', '.com'],
             shift: ['@', '.com'],
           }}
           debug={true}
           preventMouseDownDefault={true}
+          autoFocus={true}
+          restoreFocusOnChange='content'
         />
       </div>
     );

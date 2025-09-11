@@ -54,6 +54,15 @@ export declare const parseProps: (props: KeyboardReactInterface["options"]) => {
     onKeyPress?: ((button: string, e?: MouseEvent | undefined) => any) | undefined;
     onKeyReleased?: ((button: string, e?: MouseEvent | undefined) => any) | undefined;
     beforeInputUpdate?: ((instance: import("../interfaces").SimpleKeyboard) => void) | undefined;
+    useLiveRegion?: boolean | undefined;
+    liveRegionMode?: "polite" | "assertive" | undefined;
+    liveRegionDelay?: number | undefined;
+    ariaLabel?: string | undefined;
+    instructions?: string | undefined;
+    autoFocus?: boolean | undefined;
+    liveRegionAnnounceMode?: "actions" | "content" | "both" | "none" | undefined;
+    suppressAnnouncementsOnInputFocus?: boolean | undefined;
+    restoreFocusOnChange?: "content" | "always" | "never" | undefined;
     keyboardRef?: ((r: any) => void) | undefined;
 };
 export declare const changedProps: (prevProps: KeyboardReactInterface["options"], props: KeyboardReactInterface["options"]) => string[];

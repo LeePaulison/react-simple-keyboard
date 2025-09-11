@@ -35,14 +35,11 @@ const KeyboardReact = (props: KeyboardReactInterface['options']) => {
      */
     if (!initRef.current) {
       initRef.current = true;
-      parsedProps.debug && console.log('ReactSimpleKeyboard: Init');
       const targetElem = targetElemRef.current as HTMLDivElement;
       const targetClass = `.${cssClass}`;
       keyboardRef.current = new Keyboard(targetElem || targetClass, parsedProps) as unknown as KeyboardReactInterface;
       parsedProps.keyboardRef && parsedProps.keyboardRef(keyboardRef.current);
     }
-
-    console.log('[Debug] keyboardRef:', keyboardRef.current);
 
     const updatedProps = changedProps(previousProps.current, parsedProps);
 
@@ -53,7 +50,6 @@ const KeyboardReact = (props: KeyboardReactInterface['options']) => {
       const keyboard = keyboardRef.current;
       previousProps.current = parsedProps;
       keyboard?.setOptions(parsedProps);
-      parsedProps.debug && console.log('ReactSimpleKeyboard - setOptions called due to updated props:', updatedProps);
     }
   }, [initRef, cssClass, previousProps, props]);
 
