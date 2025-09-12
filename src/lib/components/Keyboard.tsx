@@ -11,8 +11,6 @@ const KeyboardReact = (props: KeyboardReactInterface['options']) => {
   const keyboardRef = React.useRef<null | KeyboardReactInterface>(null);
   const previousProps = React.useRef(props);
 
-  console.log('[KeyboardReact] active element:', document.activeElement);
-
   React.useEffect(() => {
     /**
      * Whenever this component is unmounted, ensure that Keyboard object that
