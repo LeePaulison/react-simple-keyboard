@@ -71,7 +71,8 @@ class App extends React.Component {
           debug={true}
           preventMouseDownDefault={true}
           autoFocus={true}
-          restoreFocusOnChange='content'
+          restoreFocusOnChange='never'
+          activeSurface='keyboard'
         />
       </div>
     );

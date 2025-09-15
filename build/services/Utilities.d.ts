@@ -63,6 +63,7 @@ export declare const parseProps: (props: KeyboardReactInterface["options"]) => {
     liveRegionAnnounceMode?: "actions" | "content" | "both" | "none" | undefined;
     suppressAnnouncementsOnInputFocus?: boolean | undefined;
     restoreFocusOnChange?: "content" | "always" | "never" | undefined;
+    activeSurface?: "none" | "editor" | "keyboard" | undefined;
     keyboardRef?: ((r: any) => void) | undefined;
 };
 export declare const changedProps: (prevProps: KeyboardReactInterface["options"], props: KeyboardReactInterface["options"]) => string[];
