@@ -143,6 +143,7 @@
     "dist/",
     "lib/",
     "index.js",
+    "node_modules/aac-simple-keyboard",
     "aac-simple-keyboard-1.1.0.tgz"
   ]
 }

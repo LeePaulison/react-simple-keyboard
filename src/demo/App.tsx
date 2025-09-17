@@ -15,6 +15,36 @@ class App extends React.Component {
 
   keyboard!: SimpleKeyboard;
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleGlobalKeyDown);
+  }
+
+  componentDidUpdate(): void {
+    if (this.keyboard) {
+      this.keyboard.setOptions({ debug: true });
+      console.log('[Demo] Keyboard options set', this.keyboard.options);
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleGlobalKeyDown);
+  }
+
+  handleGlobalKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'F9') {
+      this.setState({ activeSurface: 'keyboard' }, () => {
+        this.keyboard.setOptions({ activeSurface: 'keyboard' });
+        console.log('[KeyboardToggleDemo] activeSurface set to keyboard');
+      });
+    }
+    if (e.key === 'F10') {
+      this.setState({ activeSurface: 'editor' }, () => {
+        this.keyboard.setOptions({ activeSurface: 'editor' });
+        console.log('[KeyboardToggleDemo] activeSurface set to editor');
+      });
+    }
+  };
+
   onChange = (input: string) =>
     this.setState({ input }, () => {
       console.log('Input changed', input);
@@ -22,6 +52,7 @@ class App extends React.Component {
     });
 
   onKeyPress = (button: string) => {
+    console.log('Button pressed', button);
     /**
      * Shift functionality
      */
@@ -68,11 +99,9 @@ class App extends React.Component {
             default: ['@', '.com'],
             shift: ['@', '.com'],
           }}
-          debug={true}
           preventMouseDownDefault={true}
           autoFocus={true}
-          restoreFocusOnChange='never'
-          activeSurface='keyboard'
+          restoreFocusOnChange='content'
         />
       </div>
     );
