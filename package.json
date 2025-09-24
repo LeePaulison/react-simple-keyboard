@@ -1,6 +1,6 @@
 {
   "name": "@aac/react-simple-keyboard",
-  "version": "1.1.0",
+  "version": "1.1.0a.1",
   "private": true,
   "description": "508a-compliant internal fork of react-simple-keyboard by Francisco Hodge",
   "main": "build/index.js",
@@ -11,7 +11,6 @@
     "build-modern-esm": "webpack --config webpack.config.modern_esm.js",
     "test": "jest --silent",
     "coverage": "npm run test -- --coverage",
-    "prepare": "npm run build",
     "generate-types": "node scripts/generateKeyboardTypes.js"
   },
   "repository": {
@@ -56,8 +55,8 @@
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
     "@types/jest": "^29.5.14",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.3",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.32.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
@@ -80,8 +79,8 @@
     "null-loader": "^4.0.1",
     "postcss": "^8.5.3",
     "postcss-loader": "^8.1.1",
-    "react": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.12",
     "typescript": "^4.9.5",
@@ -136,14 +135,12 @@
     ]
   },
   "dependencies": {
-    "@aac/simple-keyboard": "file:aac-simple-keyboard-1.1.0.tgz"
+    "@aac/simple-keyboard": "https://github.com/LeePaulison/simple-keyboard.git#vercel-build"
   },
   "files": [
-    "build/",
-    "dist/",
-    "lib/",
-    "index.js",
-    "node_modules/aac-simple-keyboard",
-    "aac-simple-keyboard-1.1.0.tgz"
+    "build",
+    "package.json",
+    "README.md",
+    "LICENSE"
   ]
 }

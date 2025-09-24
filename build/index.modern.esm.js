@@ -1,6 +1,6 @@
 /*!
  * 
- *   @aac/react-simple-keyboard v1.1.0 (index.modern.esm.js - Modern Browsers bundle, ESM output)
+ *   @aac/react-simple-keyboard v1.1.0a.1 (index.modern.esm.js - Modern Browsers bundle, ESM output)
  *   https://github.com/hodgef/react-simple-keyboard
  *
  *   NOTE: This modern browsers bundle (index.modern.esm.js) removes all polyfills
