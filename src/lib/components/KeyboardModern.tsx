@@ -19,7 +19,7 @@ const KeyboardReact = (props: KeyboardReactInterface['options']) => {
      * may have installed.
      */
     return () => {
-      if (keyboardRef.current) {
+      if (keyboardRef.current && keyboardRef.current.destroy) {
         keyboardRef.current.destroy();
       }
       initRef.current = false;
@@ -49,7 +49,7 @@ const KeyboardReact = (props: KeyboardReactInterface['options']) => {
     if (updatedProps.length) {
       const keyboard = keyboardRef.current;
       previousProps.current = parsedProps;
-      keyboard?.setOptions(parsedProps);
+      keyboard?.setOptions?.(parsedProps);
       parsedProps.debug && console.log('ReactSimpleKeyboard - setOptions called due to updated props:', updatedProps);
     }
   }, [initRef, cssClass, previousProps, props]);

@@ -8,9 +8,16 @@ import './css/App.css';
 // Layouts
 
 class App extends React.Component {
-  state = {
+  state: {
+    input: string;
+    layoutName: string;
+    isRoving: boolean;
+    activeSurface: 'editor' | 'keyboard' | 'none';
+  } = {
     input: '',
     layoutName: 'default',
+    isRoving: false,
+    activeSurface: 'editor', // editor | keyboard | none
   };
 
   keyboard!: SimpleKeyboard;
@@ -20,8 +27,9 @@ class App extends React.Component {
   }
 
   componentDidUpdate(): void {
+    console.log('[Demo] Component did update activeSurface', this.state.activeSurface);
     if (this.keyboard) {
-      this.keyboard.setOptions({ debug: true });
+      this.keyboard.setOptions({ ...this.keyboard.options, activeSurface: this.state.activeSurface });
       console.log('[Demo] Keyboard options set', this.keyboard.options);
     }
   }
@@ -33,14 +41,14 @@ class App extends React.Component {
   handleGlobalKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'F9') {
       this.setState({ activeSurface: 'keyboard' }, () => {
-        this.keyboard.setOptions({ activeSurface: 'keyboard' });
-        console.log('[KeyboardToggleDemo] activeSurface set to keyboard');
+        this.keyboard.enableRoving();
+        console.log('[KeyboardToggleDemo] hard Enabled roving');
       });
     }
     if (e.key === 'F10') {
       this.setState({ activeSurface: 'editor' }, () => {
-        this.keyboard.setOptions({ activeSurface: 'editor' });
-        console.log('[KeyboardToggleDemo] activeSurface set to editor');
+        this.keyboard.disableRoving();
+        console.log('[KeyboardToggleDemo] hard Disabled rovings');
       });
     }
   };
@@ -85,7 +93,11 @@ class App extends React.Component {
     return (
       <div className='demoPage'>
         <div className='screenContainer'>
-          <textarea className='inputContainer' value={input} onChange={onChangeInput} />
+          <textarea className='inputContainer' value={input} onChange={onChangeInput} placeholder='Type here...' />
+          <p className='instructions'>
+            <strong>F9</strong>: Switch to Keyboard, <strong>F10</strong>: Switch to Editor
+          </p>
+          <p className='instructions'>{this.state.isRoving ? 'Roving is ON' : 'Roving is OFF'}</p>
         </div>
         <Keyboard
           keyboardRef={(r) => (this.keyboard = r)}
@@ -102,6 +114,9 @@ class App extends React.Component {
           preventMouseDownDefault={true}
           autoFocus={true}
           restoreFocusOnChange='content'
+          newLineOnEnter={true}
+          onRovingToggle={(isRoving: boolean) => this.setState({ isRoving })}
+          debug={true}
         />
       </div>
     );

@@ -25,102 +25,6 @@ export interface KeyboardReactInterface extends SimpleKeyboard {
     };
   }  
 export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
-    options: SimpleKeyboard["options"] & {
-      // eslint-disable-next-line no-unused-vars
-      keyboardRef?: (r: any) => void;
-    };
-  }  
-export interface KeyboardReactInterface extends SimpleKeyboard {
   options: SimpleKeyboard['options'] & {
     // eslint-disable-next-line no-unused-vars
     keyboardRef?: (r: any) => void;
@@ -250,12 +154,12 @@ export interface SimpleKeyboard {
    */
   syncInstanceInputs(): void;
   /**
-   * Clear the keyboard’s input.
+   * Clear the keyboard's input.
    * @param {string} [inputName] optional - the internal input to select
    */
   clearInput(inputName?: string): void;
   /**
-   * Get the keyboard’s input (You can also get it from the onChange prop).
+   * Get the keyboard's input (You can also get it from the onChange prop).
    * @param  {string} [inputName] optional - the internal input to select
    */
   getInput(inputName?: string, skipSync?: boolean): string;
@@ -264,7 +168,7 @@ export interface SimpleKeyboard {
    */
   getAllInputs(): KeyboardInput;
   /**
-   * Set the keyboard’s input.
+   * Set the keyboard's input.
    * @param  {string} input the input value
    * @param  {string} inputName optional - the internal input to select
    */
@@ -492,6 +396,7 @@ export interface UtilitiesParams {
 export interface PhysicalKeyboardParams {
   getOptions: () => KeyboardOptions;
   dispatch: any;
+  getNavEngaged: () => boolean;
 }
 export interface KeyboardOptions {
   /**
@@ -541,9 +446,9 @@ export interface KeyboardOptions {
    */
   inputName?: string;
   /**
-   * `number`: Restrains all of simple-keyboard inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.
+   * `number`: Restrains all of simple-keyboard inputs to a certain length. This should be used in addition to the input element's maxlengthattribute.
    *
-   * `{ [inputName: string]: number }`: Restrains simple-keyboard’s individual inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.
+   * `{ [inputName: string]: number }`: Restrains simple-keyboard's individual inputs to a certain length. This should be used in addition to the input element's maxlengthattribute.
    */
   maxLength?: any;
   /**
@@ -758,6 +663,30 @@ export interface KeyboardOptions {
    * - 'none': Neither is active (disables auto focus restoration)
    */
   activeSurface?: 'editor' | 'keyboard' | 'none';
+  /**
+   * Enable Roving
+   * External method to enable roving functionality
+   */
+  enableRoving?: () => void;
+  /**
+   * Disable Roving
+   * External method to disable roving functionality
+   */
+  disableRoving?: () => void;
+  /**
+   * Clears any active roving lock.
+   * External method to clear roving lock
+   */
+  clearRovingOverride?: () => void;
+  /**
+   * Check if Roving is active
+   * External method to check if roving functionality is active
+   */
+  isRovingActive?: () => boolean;
+  /**
+   * Callback fired when roving is enabled or disabled.
+   */
+  onRovingToggle?: (isActive: boolean) => void;
 }
 /**
  * Layout Key Mapping Interface
@@ -772,6 +701,7 @@ interface LayoutKeyMapping {
 export interface PhysicalKeyboard {
   getOptions: () => KeyboardOptions;
   dispatch: any;
+  getNavEngaged: () => boolean;
   layoutJSON: Record<string, LayoutKeyMapping> | null;
   lastLayout: string;
   shiftActive: boolean;
@@ -779,7 +709,7 @@ export interface PhysicalKeyboard {
   /**
    * Creates an instance of the PhysicalKeyboard service
    */
-  constructor: ({ dispatch, getOptions }: PhysicalKeyboardParams) => any;
+  constructor: ({ dispatch, getOptions, getNavEngaged }: PhysicalKeyboardParams) => any;
   handleHighlightKeyDown(e: KeyboardEvent): void;
   handleHighlightKeyUp(e: KeyboardEvent): void;
   STANDARD_CODES: Set<string>;
@@ -985,9 +915,6 @@ export interface Utilities {
    */
   pointerEventsSupported(): boolean;
   /**
-   * Bind all methods in a given class
-   */
-  /**
    * Transforms an arbitrary string to camelCase
    *
    * @param  {string} str The string to transform.
@@ -1005,9 +932,6 @@ export interface Utilities {
    * Calculate caret position offset when using rtl option
    */
   getRtlOffset(index: number, input: string): number;
-  /**
-   * Reusable empty function
-   */
   /**
    * Check if a function is a constructor
    */
