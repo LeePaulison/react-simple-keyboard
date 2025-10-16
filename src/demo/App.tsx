@@ -41,14 +41,14 @@ class App extends React.Component {
   handleGlobalKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'F9') {
       this.setState({ activeSurface: 'keyboard' }, () => {
-        this.keyboard.enableRoving();
         console.log('[KeyboardToggleDemo] hard Enabled roving');
+        this.keyboard.disableRoving();
       });
     }
-    if (e.key === 'F10') {
+    if (e.key === 'F8') {
       this.setState({ activeSurface: 'editor' }, () => {
-        this.keyboard.disableRoving();
         console.log('[KeyboardToggleDemo] hard Disabled rovings');
+        this.keyboard.disableRoving();
       });
     }
   };
@@ -64,7 +64,7 @@ class App extends React.Component {
     /**
      * Shift functionality
      */
-    if (['{capslock}', '{shiftleft}', '{shiftright}'].includes(button)) this.handleShiftButton();
+    if (['{lock}', '{shift}'].includes(button)) this.handleShiftButton();
   };
 
   handleShiftButton = () => {
@@ -72,6 +72,7 @@ class App extends React.Component {
       state: { layoutName },
     } = this;
     const shiftToggle = layoutName === 'default' ? 'shift' : 'default';
+    console.log('shiftToggle', shiftToggle);
 
     this.setState({ layoutName: shiftToggle });
   };
@@ -95,7 +96,7 @@ class App extends React.Component {
         <div className='screenContainer'>
           <textarea className='inputContainer' value={input} onChange={onChangeInput} placeholder='Type here...' />
           <p className='instructions'>
-            <strong>F9</strong>: Switch to Keyboard, <strong>F10</strong>: Switch to Editor
+            <strong>F9</strong>: Switch to Keyboard, <strong>F8</strong>: Switch to Editor
           </p>
           <p className='instructions'>{this.state.isRoving ? 'Roving is ON' : 'Roving is OFF'}</p>
         </div>
@@ -111,7 +112,6 @@ class App extends React.Component {
             default: ['@', '.com'],
             shift: ['@', '.com'],
           }}
-          preventMouseDownDefault={true}
           autoFocus={true}
           restoreFocusOnChange='content'
           newLineOnEnter={true}
